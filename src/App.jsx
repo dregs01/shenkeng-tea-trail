@@ -100,7 +100,7 @@ export default class App extends React.Component {
     const solved = st.solved
     const solvedCount = solved.filter(Boolean).length
 
-    const sealBase = { width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '25px', lineHeight: 1, boxShadow: '0 3px 8px rgba(59,52,42,.28)' }
+    const sealBase = { width: '38px', height: '38px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '21px', lineHeight: 1, boxShadow: '0 3px 8px rgba(59,52,42,.28)' }
     const sealOpen = { ...sealBase, background: 'rgba(247,241,227,.95)', color: A, border: '2px dashed ' + A }
     const sealSolved = { ...sealBase, background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)' }
     const sealStyle = (i) => (solved[i] ? sealSolved : sealOpen)
@@ -108,8 +108,8 @@ export default class App extends React.Component {
     const miniBase = { width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '18px', flex: '0 0 auto' }
     const miniOpen = { ...miniBase, background: 'rgba(247,241,227,.9)', color: A, border: '1.5px dashed ' + A }
     const miniSolved = { ...miniBase, background: A, color: '#f7f1e3', border: '1.5px solid rgba(0,0,0,.2)' }
-
-    const teaSeal = { width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '26px', background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '2px solid rgba(0,0,0,.2)', boxShadow: '0 3px 8px rgba(59,52,42,.3)' }
+    /*奉茶按鈕*/
+    const teaSeal = { width: '38px', height: '38px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '21px', background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '2px solid rgba(0,0,0,.2)', boxShadow: '0 3px 8px rgba(59,52,42,.3)' }
     const teaMini = { ...miniBase, background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '1.5px solid rgba(0,0,0,.2)' }
 
     const showDone = solved.every(Boolean) && !st.doneSeen
@@ -195,21 +195,21 @@ export default class App extends React.Component {
 
                 {[
                   { left: '12%', top: '74%' },//市
-                  { left: '30%', top: '70%' },//厝
-                  { left: '22%', top: '23%' },//工  
-                  { left: '84%', top: '50%' },//牛
+                  { left: '55%', top: '57%' },//厝
+                  { left: '35%', top: '32%' },//工  
+                  { left: '90%', top: '73%' },//牛
                 ].map((pos, i) => (
                   <button key={i} onClick={() => this.openQuiz(i)} style={{ ...s("position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:none;background:transparent;cursor:pointer;z-index:4;"), left: pos.left, top: pos.top }}>
-                    {showHalo && !solved[i] && <span style={s("position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(177,90,60,.45);animation:halo 2.2s ease-out infinite;")}></span>}
+                    {showHalo && !solved[i] && <span style={s("position:absolute;left:50%;top:50%;width:50px;height:50px;border-radius:50%;border:2px solid rgba(177,90,60,.45);animation:halo 2.2s ease-out infinite;")}></span>}
                     <span style={sealStyle(i)}>{HOTSPOTS[i].char}</span>
                     {solved[i] && <span style={s("position:absolute;top:-3px;right:-3px;width:19px;height:19px;border-radius:50%;background:#5f7a44;color:#fff;font-size:12px;line-height:19px;text-align:center;border:2px solid #efe6d3;")}>✓</span>}
                   </button>
                 ))}
 
                 {/* 奉茶 */}
-                <button onClick={() => this.openTea()} style={s("position:absolute;left:48%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;padding:0;border:none;background:transparent;cursor:pointer;z-index:5;")}>
+                <button onClick={() => this.openTea()} style={s("position:absolute;left:70%;top:72%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;padding:0;border:none;background:transparent;cursor:pointer;z-index:5;")}>
                   <span style={s("position:relative;width:50px;height:50px;display:flex;align-items:center;justify-content:center;")}>
-                    {showHalo && !st.teaDone && <span style={s("position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(198,154,69,.55);animation:halo 2.4s ease-out infinite;")}></span>}
+                    {showHalo && !st.teaDone && <span style={s("position:absolute;left:50%;top:50%;width:55px;height:55px;border-radius:50%;border:2px solid rgba(198,154,69,.55);animation:halo 2.4s ease-out infinite;")}></span>}
                     <span style={teaSeal}>茶</span>
                     {st.teaDone && <span style={s("position:absolute;top:-3px;right:-3px;width:19px;height:19px;border-radius:50%;background:#5f7a44;color:#fff;font-size:12px;line-height:19px;text-align:center;border:2px solid #efe6d3;")}>✓</span>}
                   </span>
@@ -221,7 +221,7 @@ export default class App extends React.Component {
                 <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:19px;color:#9a7b4f;margin:4px 2px 10px;")}>古厝裡的祕密</div>
                 <button onClick={() => this.openTea()} style={s("display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#f6ecd6;border:1px solid rgba(198,154,69,.45);border-radius:13px;padding:10px 13px;margin-bottom:9px;cursor:pointer;box-shadow:0 1px 0 rgba(59,52,42,.05);")}>
                   <span style={teaMini}>茶</span>
-                  <span style={s("flex:1;")}><span style={s("display:block;font-size:15.5px;color:#3b342a;font-weight:600;line-height:1.2;")}>受班長招待・奉茶</span><span style={s("display:block;font-size:11.5px;color:#9a7b4f;")}>茶山人情體驗</span></span>
+                  <span style={s("flex:1;")}><span style={s("display:block;font-size:15.5px;color:#3b342a;font-weight:600;line-height:1.2;")}>奉茶</span><span style={s("display:block;font-size:11.5px;color:#9a7b4f;")}>體驗茶山人情味</span></span>
                   <span style={s("font-size:12px;color:#b08a3e;font-weight:600;white-space:nowrap;flex:0 0 auto;")}>{st.teaDone ? '已奉茶' : '體驗'}</span>
                 </button>
                 {HOTSPOTS.map((h, i) => (
@@ -400,7 +400,7 @@ export default class App extends React.Component {
   renderTea() {
     const st = this.state
     const teaText = st.tea.step === 0
-      ? '「來，山路行甲遮，先坐落歇睏。」蔡班長端出一杯自家種的文山包種茶，還有一碗豆花招待你。'
+      ? '「來，山路行甲遮，先坐落歇睏。」蔡班長端出一杯自家種的茶葉，還有一碗豆花招待你。'
       : '茶湯清香、入喉回甘。班長笑說：吃點甜的、喝口茶，待會走山卡有力。這杯茶是務農之餘的私藏、不外賣——是茶山待客的人情味。'
     const teaBtn = st.tea.step === 0 ? '雙手接過茶' : '謝謝班長'
 

@@ -36,7 +36,7 @@ html, body { margin: 0; padding: 0; background: #2a2620; }
 }
 
 /* ===== app 內部使用的動畫 ===== */
-@keyframes halo { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.7); opacity: 0 } }
+@keyframes halo { 0% { transform: translate(-50%, -50%) scale(1); opacity: .6 }100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0  } }
 @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 @keyframes sheetUp { from { transform: translateY(40px) } to { transform: translateY(0) } }
 @keyframes steam {
