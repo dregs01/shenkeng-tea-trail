@@ -18,7 +18,7 @@ html, body { margin: 0; padding: 0; background: #2a2620; }
   max-width: 480px;
   overflow: hidden;
   background: #efe6d3;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'LXGW WenKai TC', sans-serif;
 }
 @media (min-width: 480px) {
   .device {

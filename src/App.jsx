@@ -100,16 +100,16 @@ export default class App extends React.Component {
     const solved = st.solved
     const solvedCount = solved.filter(Boolean).length
 
-    const sealBase = { width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '25px', lineHeight: 1, boxShadow: '0 3px 8px rgba(59,52,42,.28)' }
+    const sealBase = { width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '25px', lineHeight: 1, boxShadow: '0 3px 8px rgba(59,52,42,.28)' }
     const sealOpen = { ...sealBase, background: 'rgba(247,241,227,.95)', color: A, border: '2px dashed ' + A }
     const sealSolved = { ...sealBase, background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)' }
     const sealStyle = (i) => (solved[i] ? sealSolved : sealOpen)
 
-    const miniBase = { width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '18px', flex: '0 0 auto' }
+    const miniBase = { width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '18px', flex: '0 0 auto' }
     const miniOpen = { ...miniBase, background: 'rgba(247,241,227,.9)', color: A, border: '1.5px dashed ' + A }
     const miniSolved = { ...miniBase, background: A, color: '#f7f1e3', border: '1.5px solid rgba(0,0,0,.2)' }
 
-    const teaSeal = { width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '26px', background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '2px solid rgba(0,0,0,.2)', boxShadow: '0 3px 8px rgba(59,52,42,.3)' }
+    const teaSeal = { width: '50px', height: '50px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '26px', background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '2px solid rgba(0,0,0,.2)', boxShadow: '0 3px 8px rgba(59,52,42,.3)' }
     const teaMini = { ...miniBase, background: st.teaDone ? '#9a7b4f' : '#c69a45', color: '#fff7e6', border: '1.5px solid rgba(0,0,0,.2)' }
 
     const showDone = solved.every(Boolean) && !st.doneSeen
@@ -124,7 +124,7 @@ export default class App extends React.Component {
             <div style={s("position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,36,30,.10) 0%,rgba(40,36,30,.04) 36%,rgba(40,36,30,.52) 70%,rgba(30,26,21,.88) 100%);")}></div>
             <div style={s("position:absolute;left:0;right:0;bottom:0;padding:30px 26px 40px;color:#f4ecd9;")}>
               <div style={s("display:inline-block;padding:5px 13px;border:1px solid rgba(244,236,217,.5);border-radius:20px;font-size:11.5px;letter-spacing:3px;margin-bottom:16px;")}>新北深坑・茶山聚落</div>
-              <h1 style={s("font-family:'Ma Shan Zheng',cursive;font-size:54px;line-height:1.02;margin:0 0 12px;text-shadow:0 2px 12px rgba(0,0,0,.55);")}>炮子崙古道</h1>
+              <h1 style={s("font-family:'LXGW WenKai TC',cursive;font-size:54px;line-height:1.02;margin:0 0 12px;text-shadow:0 2px 12px rgba(0,0,0,.55);")}>炮子崙古道</h1>
               <p style={s("font-size:15px;line-height:1.65;margin:0 0 24px;color:rgba(244,236,217,.82);max-width:300px;")}>走訪百年茅草屋與石頭厝，沿途解謎，認識先民就地取材、以茅草蓋屋的生活智慧。</p>
               <div style={s("display:flex;gap:12px;flex-wrap:wrap;")}>
                 <button onClick={() => this.setState({ screen: 'select' })} style={s("display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border:none;border-radius:30px;background:#f4ecd9;color:#3b342a;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.4);")}>開始探索<span style={s("font-size:18px;")}>→</span></button>
@@ -140,7 +140,7 @@ export default class App extends React.Component {
           <div style={s("position:absolute;inset:0;background:#efe6d3;display:flex;flex-direction:column;")}>
             <div style={s("display:flex;align-items:center;gap:12px;padding:14px 16px;background:#f4ecd9;border-bottom:1px solid rgba(59,52,42,.12);")}>
               <button onClick={() => this.setState({ screen: 'home' })} style={s("width:36px;height:36px;border-radius:50%;border:1px solid rgba(59,52,42,.18);background:#fbf6ea;color:#3b342a;font-size:18px;cursor:pointer;line-height:1;")}>←</button>
-              <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:23px;color:#3b342a;")}>選擇導覽地點</div>
+              <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:23px;color:#3b342a;")}>選擇導覽地點</div>
             </div>
             <div style={s("flex:1;overflow-y:auto;padding:18px 18px 30px;")}>
               <p style={s("font-size:13.5px;color:#6f6450;margin:2px 4px 18px;line-height:1.6;")}>沿著古道有兩座百年家屋，點選地點，邊走邊解謎。</p>
@@ -153,7 +153,7 @@ export default class App extends React.Component {
                 </div>
                 <div style={s("padding:14px 16px 16px;")}>
                   <div style={s("display:flex;align-items:baseline;justify-content:space-between;")}>
-                    <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:26px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
+                    <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
                     <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {solvedCount}/5</div>
                   </div>
                   <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>140 年石頭厝、良心市集、崁厝工法與地牛的祕密。</p>
@@ -168,7 +168,7 @@ export default class App extends React.Component {
                   <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(59,52,42,.55);color:#f7f1e3;font-size:12px;font-weight:600;")}>即將推出</div>
                 </div>
                 <div style={s("padding:14px 16px 16px;")}>
-                  <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:26px;color:#6f6450;line-height:1;")}>林家草厝</div>
+                  <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#6f6450;line-height:1;")}>林家草厝</div>
                   <p style={s("font-size:13px;color:#9a8e76;margin:8px 0 0;line-height:1.55;")}>百年杜英迎賓樹、原始白茅草屋、魚鱗式疊草工法。</p>
                 </div>
               </div>
@@ -182,7 +182,7 @@ export default class App extends React.Component {
             <div style={s("display:flex;align-items:center;gap:12px;padding:14px 16px;background:#f4ecd9;border-bottom:1px solid rgba(59,52,42,.12);z-index:5;")}>
               <button onClick={() => this.setState({ screen: 'select', quizId: null })} style={s("width:36px;height:36px;border-radius:50%;border:1px solid rgba(59,52,42,.18);background:#fbf6ea;color:#3b342a;font-size:18px;cursor:pointer;line-height:1;")}>←</button>
               <div style={s("flex:1;")}>
-                <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
+                <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:22px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
                 <div style={s("font-size:11.5px;color:#9a7b4f;")}>140 年石頭厝・炮子崙茶山</div>
               </div>
               <div style={s("font-size:13px;color:#6f6450;background:#fbf6ea;border:1px solid rgba(59,52,42,.15);padding:5px 12px;border-radius:16px;")}>解謎 {solvedCount}/5</div>
@@ -214,13 +214,13 @@ export default class App extends React.Component {
                     <span style={teaSeal}>茶</span>
                     {st.teaDone && <span style={s("position:absolute;top:-3px;right:-3px;width:19px;height:19px;border-radius:50%;background:#5f7a44;color:#fff;font-size:12px;line-height:19px;text-align:center;border:2px solid #efe6d3;")}>✓</span>}
                   </span>
-                  <span style={s("font-family:'Ma Shan Zheng',cursive;font-size:15px;color:#7a5a2f;background:rgba(247,240,224,.92);padding:1px 9px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.25);")}>奉茶</span>
+                  <span style={s("font-family:'LXGW WenKai TC',cursive;font-size:15px;color:#7a5a2f;background:rgba(247,240,224,.92);padding:1px 9px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.25);")}>奉茶</span>
                 </button>
               </div>
 
               <p style={s("text-align:center;font-size:13px;color:#6f6450;margin:14px 26px 4px;line-height:1.6;")}>點點看會發光的<span style={s("color:#b15a3c;font-weight:600;")}>印章</span>，或從下面清單開始解謎。</p>
               <div style={s("padding:10px 18px 24px;")}>
-                <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:19px;color:#9a7b4f;margin:4px 2px 10px;")}>古厝裡的祕密</div>
+                <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:19px;color:#9a7b4f;margin:4px 2px 10px;")}>古厝裡的祕密</div>
                 <button onClick={() => this.openTea()} style={s("display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#f6ecd6;border:1px solid rgba(198,154,69,.45);border-radius:13px;padding:10px 13px;margin-bottom:9px;cursor:pointer;box-shadow:0 1px 0 rgba(59,52,42,.05);")}>
                   <span style={teaMini}>茶</span>
                   <span style={s("flex:1;")}><span style={s("display:block;font-size:15.5px;color:#3b342a;font-weight:600;line-height:1.2;")}>受班長招待・奉茶</span><span style={s("display:block;font-size:11.5px;color:#9a7b4f;")}>茶山人情體驗</span></span>
@@ -239,7 +239,7 @@ export default class App extends React.Component {
               {showDone && (
                 <div style={s("position:absolute;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;background:rgba(34,30,24,.5);")}>
                   <div style={s("background:#f4ecd9;border-radius:20px;padding:28px 26px;width:82%;text-align:center;box-shadow:0 12px 32px rgba(0,0,0,.4);animation:sheetUp .4s ease;")}>
-                    <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:30px;color:#b15a3c;margin-bottom:8px;")}>恭喜走讀完成！</div>
+                    <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:30px;color:#b15a3c;margin-bottom:8px;")}>恭喜走讀完成！</div>
                     <p style={s("font-size:14.5px;line-height:1.65;color:#4a4234;margin:0 0 20px;")}>你已解開蔡家古厝的全部 5 道謎題，把茶山的生活智慧收進口袋了。</p>
                     <button onClick={() => this.setState({ doneSeen: true })} style={s("width:100%;padding:13px;border-radius:13px;border:1px solid rgba(59,52,42,.25);background:#fbf6ea;color:#3b342a;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:10px;")}>再看看古厝</button>
                     <button onClick={() => this.setState({ screen: 'select', quizId: null })} style={s("width:100%;padding:14px;border-radius:13px;border:none;background:#b15a3c;color:#fbf6ea;font-size:15px;font-weight:600;cursor:pointer;")}>前往下一個地點</button>
@@ -261,7 +261,7 @@ export default class App extends React.Component {
 
         {/* drag ghost */}
         {st.dragging && (
-          <div style={{ position: 'fixed', left: st.dragging.x + 'px', top: st.dragging.y + 'px', transform: 'translate(-50%,-50%)', padding: '10px 18px', borderRadius: '22px', background: A, color: '#f7f1e3', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '22px', pointerEvents: 'none', zIndex: 200, boxShadow: '0 6px 16px rgba(0,0,0,.3)' }}>
+          <div style={{ position: 'fixed', left: st.dragging.x + 'px', top: st.dragging.y + 'px', transform: 'translate(-50%,-50%)', padding: '10px 18px', borderRadius: '22px', background: A, color: '#f7f1e3', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '22px', pointerEvents: 'none', zIndex: 200, boxShadow: '0 6px 16px rgba(0,0,0,.3)' }}>
             {this.labelOf(this.state.dragging.nameId)}
           </div>
         )}
@@ -291,7 +291,7 @@ export default class App extends React.Component {
           <div style={s("display:flex;align-items:center;gap:12px;margin-bottom:4px;")}>
             <span style={modalSeal}>{h.char}</span>
             <div style={s("flex:1;")}>
-              <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:24px;color:#3b342a;line-height:1.1;")}>{h.name}</div>
+              <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:24px;color:#3b342a;line-height:1.1;")}>{h.name}</div>
               <div style={s("font-size:11.5px;color:#9a7b4f;letter-spacing:1px;")}>{h.tag}</div>
             </div>
             <button onClick={() => this.closeQuiz()} style={s("width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;line-height:1;")}>✕</button>
@@ -335,11 +335,11 @@ export default class App extends React.Component {
 
   renderMatch(h, A, ink, inkSoft, primaryBtnStyle) {
     const st = this.state
-    const slotZoneBase = { minWidth: '96px', padding: '12px 10px', borderRadius: '12px', border: '2px dashed rgba(59,52,42,.35)', background: 'rgba(247,241,227,.6)', color: inkSoft, fontFamily: "'Ma Shan Zheng',cursive", fontSize: '20px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }
+    const slotZoneBase = { minWidth: '96px', padding: '12px 10px', borderRadius: '12px', border: '2px dashed rgba(59,52,42,.35)', background: 'rgba(247,241,227,.6)', color: inkSoft, fontFamily: "'LXGW WenKai TC',cursive", fontSize: '20px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }
     const zoneFilled = { background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.2)', borderStyle: 'solid' }
     const zoneOk = { background: '#e7eed8', color: '#3f5230', border: '2px solid #5f7a44', borderStyle: 'solid' }
     const zoneBad = { background: '#f3ddd6', color: '#8a3a2c', border: '2px solid #b14a3c', borderStyle: 'solid' }
-    const chipStyle = { padding: '10px 18px', borderRadius: '22px', background: '#fbf6ea', border: '1.5px solid ' + A, color: ink, fontFamily: "'Ma Shan Zheng',cursive", fontSize: '22px', cursor: 'grab', touchAction: 'none', userSelect: 'none', boxShadow: '0 2px 6px rgba(59,52,42,.18)' }
+    const chipStyle = { padding: '10px 18px', borderRadius: '22px', background: '#fbf6ea', border: '1.5px solid ' + A, color: ink, fontFamily: "'LXGW WenKai TC',cursive", fontSize: '22px', cursor: 'grab', touchAction: 'none', userSelect: 'none', boxShadow: '0 2px 6px rgba(59,52,42,.18)' }
     const checked = st.matchChecked
     const labelOf = (id) => { const c = h.chips.find((x) => x.id === id); return c ? c.label : '' }
 
@@ -391,7 +391,7 @@ export default class App extends React.Component {
     return (
       <>
         <div style={s("margin-top:18px;padding:16px;background:#fbf6ea;border:1px solid rgba(154,123,79,.3);border-left:4px solid #9a7b4f;border-radius:12px;")}>
-          <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:18px;color:#9a7b4f;margin-bottom:6px;")}>知識卡</div>
+          <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:18px;color:#9a7b4f;margin-bottom:6px;")}>知識卡</div>
           <p style={s("font-size:14.5px;line-height:1.7;color:#4a4234;margin:0;")}>{h.know}</p>
         </div>
         <button onClick={() => this.finishQuiz()} style={primaryBtnStyle}>完成，收進口袋</button>
@@ -411,7 +411,7 @@ export default class App extends React.Component {
         <div onClick={() => this.closeTea()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
         <div style={s("position:relative;width:100%;background:#f4ecd9;border-radius:26px 26px 0 0;padding:26px 24px 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
           <button onClick={() => this.closeTea()} style={s("position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;")}>✕</button>
-          <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:27px;color:#7a5a2f;text-align:center;margin-bottom:2px;")}>奉茶</div>
+          <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:27px;color:#7a5a2f;text-align:center;margin-bottom:2px;")}>奉茶</div>
           <div style={s("font-size:12px;color:#9a7b4f;text-align:center;letter-spacing:2px;margin-bottom:14px;")}>受蔡班長招待</div>
           <div style={s("display:flex;justify-content:center;margin:4px 0 18px;")}>
             <div style={s("position:relative;width:122px;height:112px;")}>
@@ -437,7 +437,7 @@ export default class App extends React.Component {
         <div onClick={() => this.closeActivities()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
         <div style={s("position:relative;background:#f4ecd9;border-radius:26px 26px 0 0;max-height:90%;overflow-y:auto;padding:22px 22px 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
           <div style={s("display:flex;align-items:center;margin-bottom:6px;")}>
-            <div style={s("flex:1;font-family:'Ma Shan Zheng',cursive;font-size:25px;color:#3b342a;")}>茶山活動報名</div>
+            <div style={s("flex:1;font-family:'LXGW WenKai TC',cursive;font-size:25px;color:#3b342a;")}>茶山活動報名</div>
             <button onClick={() => this.closeActivities()} style={s("width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;")}>✕</button>
           </div>
           <p style={s("font-size:13px;color:#6f6450;margin:0 0 16px;line-height:1.6;")}>跟著茶山一起共工、做農事，名額有限，先報名先預約。</p>
@@ -471,7 +471,7 @@ export default class App extends React.Component {
       <div style={s("display:flex;align-items:center;gap:12px;padding:14px 16px;background:#f4ecd9;border-bottom:1px solid rgba(59,52,42,.12);")}>
         <button onClick={() => this.setState({ screen: 'home' })} style={s("width:36px;height:36px;border-radius:50%;border:1px solid rgba(59,52,42,.18);background:#fbf6ea;color:#3b342a;font-size:18px;cursor:pointer;line-height:1;")}>←</button>
         <div style={s("flex:1;")}>
-          <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#3b342a;line-height:1;")}>我的卡冊</div>
+          <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:22px;color:#3b342a;line-height:1;")}>我的卡冊</div>
           <div style={s("font-size:11.5px;color:#9a7b4f;")}>已解開 {solved.filter(Boolean).length}/5 張</div>
         </div>
       </div>
@@ -489,9 +489,9 @@ export default class App extends React.Component {
               /* 已解開：完整卡片 */
               <div style={s("background:#fbf6ea;border:1px solid rgba(154,123,79,.25);border-radius:16px;padding:16px;")}>
                 <div style={s("display:flex;align-items:center;gap:12px;margin-bottom:10px;")}>
-                  <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '25px', background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)', boxShadow: '0 3px 8px rgba(59,52,42,.28)', flexShrink: 0 }}>{h.char}</span>
+                  <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '25px', background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)', boxShadow: '0 3px 8px rgba(59,52,42,.28)', flexShrink: 0 }}>{h.char}</span>
                   <div>
-                    <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:20px;color:#3b342a;line-height:1;")}>{h.name}</div>
+                    <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:20px;color:#3b342a;line-height:1;")}>{h.name}</div>
                     <div style={s("font-size:11px;color:#9a7b4f;letter-spacing:1px;margin-top:2px;")}>{h.tag}</div>
                   </div>
                   <span style={s("margin-left:auto;font-size:11px;color:#5f7a44;font-weight:600;background:#e7eed8;padding:3px 9px;border-radius:10px;")}>已收藏</span>
@@ -503,7 +503,7 @@ export default class App extends React.Component {
             ) : (
               /* 未解開：鎖定狀態 */
               <div style={s("background:#f2ead9;border:1px dashed rgba(59,52,42,.2);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;")}>
-                <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '25px', background: 'rgba(59,52,42,.08)', color: 'rgba(59,52,42,.25)', border: '2px dashed rgba(59,52,42,.2)', flexShrink: 0 }}>？</span>
+                <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '25px', background: 'rgba(59,52,42,.08)', color: 'rgba(59,52,42,.25)', border: '2px dashed rgba(59,52,42,.2)', flexShrink: 0 }}>？</span>
                 <div>
                   <div style={s("font-size:14px;color:#9a8e76;font-weight:600;")}>尚未解開</div>
                   <div style={s("font-size:12px;color:#b8a98a;margin-top:2px;")}>前往古厝找到印章「{h.char}」</div>
@@ -516,7 +516,7 @@ export default class App extends React.Component {
         {/* 全部解開後的彩蛋文字 */}
         {solved.every(Boolean) && (
           <div style={s("text-align:center;padding:20px 10px;")}>
-            <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#b15a3c;margin-bottom:6px;")}>🎉 集齊全部知識！</div>
+            <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:22px;color:#b15a3c;margin-bottom:6px;")}>🎉 集齊全部知識！</div>
             <p style={s("font-size:13px;color:#9a7b4f;line-height:1.7;margin:0;")}>你已把蔡家古厝的生活智慧都收進口袋，<br/>是真正的茶山知己。</p>
           </div>
         )}
