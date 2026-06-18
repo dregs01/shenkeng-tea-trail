@@ -28,7 +28,7 @@ export default class App extends React.Component {
     matchAssign: { a: null, b: null, c: null },
     matchChecked: false,
     dragging: null,
-    solved: [false, false, false, false, false],
+    solved: [false, false, false, false],
     doneSeen: false,
     showActivities: false,
     joined: {},
@@ -149,12 +149,12 @@ export default class App extends React.Component {
               <button onClick={() => this.setState({ screen: 'scene' })} style={s("display:block;width:100%;text-align:left;padding:0;border:1px solid rgba(59,52,42,.16);border-radius:18px;overflow:hidden;background:#fbf6ea;cursor:pointer;margin-bottom:18px;box-shadow:0 4px 14px rgba(59,52,42,.1);")}>
                 <div style={s("position:relative;height:150px;background:#efe6d3;")}>
                   <img src={CAI_THUMB} alt="蔡家古厝" style={s("width:100%;height:100%;object-fit:cover;")} />
-                  <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(177,90,60,.92);color:#f7f1e3;font-size:12px;font-weight:600;white-space:nowrap;")}>5 個謎題</div>
+                  <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(177,90,60,.92);color:#f7f1e3;font-size:12px;font-weight:600;white-space:nowrap;")}>4 個謎題</div>
                 </div>
                 <div style={s("padding:14px 16px 16px;")}>
                   <div style={s("display:flex;align-items:baseline;justify-content:space-between;")}>
                     <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
-                    <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {solvedCount}/5</div>
+                    <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {solvedCount}/4</div>
                   </div>
                   <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>140 年石頭厝、良心市集、崁厝工法與地牛的祕密。</p>
                 </div>
@@ -185,7 +185,7 @@ export default class App extends React.Component {
                 <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:22px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
                 <div style={s("font-size:11.5px;color:#9a7b4f;")}>140 年石頭厝・炮子崙茶山</div>
               </div>
-              <div style={s("font-size:13px;color:#6f6450;background:#fbf6ea;border:1px solid rgba(59,52,42,.15);padding:5px 12px;border-radius:16px;")}>解謎 {solvedCount}/5</div>
+              <div style={s("font-size:13px;color:#6f6450;background:#fbf6ea;border:1px solid rgba(59,52,42,.15);padding:5px 12px;border-radius:16px;")}>解謎 {solvedCount}/4</div>
             </div>
 
             <div style={s("flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;")}>
@@ -194,11 +194,10 @@ export default class App extends React.Component {
                 <div style={s("position:absolute;top:0;left:0;right:0;height:34%;background:linear-gradient(180deg,rgba(239,230,211,.92),rgba(239,230,211,0));")}></div>
 
                 {[
-                  { left: '14%', top: '74%' },
-                  { left: '30%', top: '50%' },
-                  { left: '22%', top: '23%' },
-                  { left: '84%', top: '50%' },
-                  { left: '64%', top: '22%' },
+                  { left: '12%', top: '74%' },//市
+                  { left: '30%', top: '70%' },//厝
+                  { left: '22%', top: '23%' },//工  
+                  { left: '84%', top: '50%' },//牛
                 ].map((pos, i) => (
                   <button key={i} onClick={() => this.openQuiz(i)} style={{ ...s("position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:none;background:transparent;cursor:pointer;z-index:4;"), left: pos.left, top: pos.top }}>
                     {showHalo && !solved[i] && <span style={s("position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(177,90,60,.45);animation:halo 2.2s ease-out infinite;")}></span>}
@@ -214,7 +213,6 @@ export default class App extends React.Component {
                     <span style={teaSeal}>茶</span>
                     {st.teaDone && <span style={s("position:absolute;top:-3px;right:-3px;width:19px;height:19px;border-radius:50%;background:#5f7a44;color:#fff;font-size:12px;line-height:19px;text-align:center;border:2px solid #efe6d3;")}>✓</span>}
                   </span>
-                  <span style={s("font-family:'LXGW WenKai TC',cursive;font-size:15px;color:#7a5a2f;background:rgba(247,240,224,.92);padding:1px 9px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.25);")}>奉茶</span>
                 </button>
               </div>
 
@@ -240,7 +238,7 @@ export default class App extends React.Component {
                 <div style={s("position:absolute;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;background:rgba(34,30,24,.5);")}>
                   <div style={s("background:#f4ecd9;border-radius:20px;padding:28px 26px;width:82%;text-align:center;box-shadow:0 12px 32px rgba(0,0,0,.4);animation:sheetUp .4s ease;")}>
                     <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:30px;color:#b15a3c;margin-bottom:8px;")}>恭喜走讀完成！</div>
-                    <p style={s("font-size:14.5px;line-height:1.65;color:#4a4234;margin:0 0 20px;")}>你已解開蔡家古厝的全部 5 道謎題，把茶山的生活智慧收進口袋了。</p>
+                    <p style={s("font-size:14.5px;line-height:1.65;color:#4a4234;margin:0 0 20px;")}>你已解開蔡家古厝的全部 4 道謎題，把茶山的生活智慧收進口袋了。</p>
                     <button onClick={() => this.setState({ doneSeen: true })} style={s("width:100%;padding:13px;border-radius:13px;border:1px solid rgba(59,52,42,.25);background:#fbf6ea;color:#3b342a;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:10px;")}>再看看古厝</button>
                     <button onClick={() => this.setState({ screen: 'select', quizId: null })} style={s("width:100%;padding:14px;border-radius:13px;border:none;background:#b15a3c;color:#fbf6ea;font-size:15px;font-weight:600;cursor:pointer;")}>前往下一個地點</button>
                   </div>
@@ -472,7 +470,7 @@ export default class App extends React.Component {
         <button onClick={() => this.setState({ screen: 'home' })} style={s("width:36px;height:36px;border-radius:50%;border:1px solid rgba(59,52,42,.18);background:#fbf6ea;color:#3b342a;font-size:18px;cursor:pointer;line-height:1;")}>←</button>
         <div style={s("flex:1;")}>
           <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:22px;color:#3b342a;line-height:1;")}>我的卡冊</div>
-          <div style={s("font-size:11.5px;color:#9a7b4f;")}>已解開 {solved.filter(Boolean).length}/5 張</div>
+          <div style={s("font-size:11.5px;color:#9a7b4f;")}>已解開 {solved.filter(Boolean).length}/4 張</div>
         </div>
       </div>
 
