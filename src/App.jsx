@@ -120,15 +120,16 @@ export default class App extends React.Component {
         {/* ======================= HOME ======================= */}
         {st.screen === 'home' && (
           <div style={s("position:absolute;inset:0;background:#2a2620;")}>
-            <img src={MAP_IMG} alt="炮仔崙古道手繪地圖" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;")} />
+            <img src={MAP_IMG} alt="炮子崙古道手繪地圖" style={s("position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;")} />
             <div style={s("position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,36,30,.10) 0%,rgba(40,36,30,.04) 36%,rgba(40,36,30,.52) 70%,rgba(30,26,21,.88) 100%);")}></div>
             <div style={s("position:absolute;left:0;right:0;bottom:0;padding:30px 26px 40px;color:#f4ecd9;")}>
               <div style={s("display:inline-block;padding:5px 13px;border:1px solid rgba(244,236,217,.5);border-radius:20px;font-size:11.5px;letter-spacing:3px;margin-bottom:16px;")}>新北深坑・茶山聚落</div>
-              <h1 style={s("font-family:'Ma Shan Zheng',cursive;font-size:54px;line-height:1.02;margin:0 0 12px;text-shadow:0 2px 12px rgba(0,0,0,.55);")}>炮仔崙古道</h1>
+              <h1 style={s("font-family:'Ma Shan Zheng',cursive;font-size:54px;line-height:1.02;margin:0 0 12px;text-shadow:0 2px 12px rgba(0,0,0,.55);")}>炮子崙古道</h1>
               <p style={s("font-size:15px;line-height:1.65;margin:0 0 24px;color:rgba(244,236,217,.82);max-width:300px;")}>走訪百年茅草屋與石頭厝，沿途解謎，認識先民就地取材、以茅草蓋屋的生活智慧。</p>
               <div style={s("display:flex;gap:12px;flex-wrap:wrap;")}>
                 <button onClick={() => this.setState({ screen: 'select' })} style={s("display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border:none;border-radius:30px;background:#f4ecd9;color:#3b342a;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.4);")}>開始探索<span style={s("font-size:18px;")}>→</span></button>
                 <button onClick={() => this.openActivities()} style={s("display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border:1.5px solid rgba(244,236,217,.7);border-radius:30px;background:rgba(244,236,217,.1);color:#f4ecd9;font-size:16px;font-weight:600;cursor:pointer;")}>參加活動</button>
+                <button onClick={() => this.setState({ screen: 'collection' })} style={s("display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border:1.5px solid rgba(244,236,217,.7);border-radius:30px;background:rgba(244,236,217,.1);color:#f4ecd9;font-size:16px;font-weight:600;cursor:pointer;")}>我的卡冊</button>
               </div>
             </div>
           </div>
@@ -264,6 +265,8 @@ export default class App extends React.Component {
             {this.labelOf(this.state.dragging.nameId)}
           </div>
         )}
+        {/* ======================= 卡冊 ======================= */}
+        {st.screen === 'collection' && this.renderCollection()}
       </div>
     )
   }
@@ -458,4 +461,67 @@ export default class App extends React.Component {
       </div>
     )
   }
+  renderCollection() {
+  const { solved } = this.state
+  const A = this.props.accentColor ?? '#b15a3c'
+
+  return (
+    <div style={s("position:absolute;inset:0;background:#efe6d3;display:flex;flex-direction:column;")}>
+      {/* 頂部 header */}
+      <div style={s("display:flex;align-items:center;gap:12px;padding:14px 16px;background:#f4ecd9;border-bottom:1px solid rgba(59,52,42,.12);")}>
+        <button onClick={() => this.setState({ screen: 'home' })} style={s("width:36px;height:36px;border-radius:50%;border:1px solid rgba(59,52,42,.18);background:#fbf6ea;color:#3b342a;font-size:18px;cursor:pointer;line-height:1;")}>←</button>
+        <div style={s("flex:1;")}>
+          <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#3b342a;line-height:1;")}>我的卡冊</div>
+          <div style={s("font-size:11.5px;color:#9a7b4f;")}>已解開 {solved.filter(Boolean).length}/5 張</div>
+        </div>
+      </div>
+
+      {/* 卡片列表 */}
+      <div style={s("flex:1;overflow-y:auto;padding:18px 18px 30px;")}>
+        <p style={s("font-size:13px;color:#6f6450;margin:0 0 16px;line-height:1.6;")}>走訪古厝解謎後，知識卡會收進這裡。</p>
+
+        {HOTSPOTS.map((h, i) => (
+          <div key={i} style={{
+            ...s("border-radius:16px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 10px rgba(59,52,42,.1);"),
+            opacity: solved[i] ? 1 : 0.5,
+          }}>
+            {solved[i] ? (
+              /* 已解開：完整卡片 */
+              <div style={s("background:#fbf6ea;border:1px solid rgba(154,123,79,.25);border-radius:16px;padding:16px;")}>
+                <div style={s("display:flex;align-items:center;gap:12px;margin-bottom:10px;")}>
+                  <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '25px', background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)', boxShadow: '0 3px 8px rgba(59,52,42,.28)', flexShrink: 0 }}>{h.char}</span>
+                  <div>
+                    <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:20px;color:#3b342a;line-height:1;")}>{h.name}</div>
+                    <div style={s("font-size:11px;color:#9a7b4f;letter-spacing:1px;margin-top:2px;")}>{h.tag}</div>
+                  </div>
+                  <span style={s("margin-left:auto;font-size:11px;color:#5f7a44;font-weight:600;background:#e7eed8;padding:3px 9px;border-radius:10px;")}>已收藏</span>
+                </div>
+                <div style={s("border-left:3px solid #9a7b4f;padding-left:12px;")}>
+                  <p style={s("font-size:13.5px;line-height:1.75;color:#4a4234;margin:0;")}>{h.know}</p>
+                </div>
+              </div>
+            ) : (
+              /* 未解開：鎖定狀態 */
+              <div style={s("background:#f2ead9;border:1px dashed rgba(59,52,42,.2);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;")}>
+                <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Ma Shan Zheng',cursive", fontSize: '25px', background: 'rgba(59,52,42,.08)', color: 'rgba(59,52,42,.25)', border: '2px dashed rgba(59,52,42,.2)', flexShrink: 0 }}>？</span>
+                <div>
+                  <div style={s("font-size:14px;color:#9a8e76;font-weight:600;")}>尚未解開</div>
+                  <div style={s("font-size:12px;color:#b8a98a;margin-top:2px;")}>前往古厝找到印章「{h.char}」</div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* 全部解開後的彩蛋文字 */}
+        {solved.every(Boolean) && (
+          <div style={s("text-align:center;padding:20px 10px;")}>
+            <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:22px;color:#b15a3c;margin-bottom:6px;")}>🎉 集齊全部知識！</div>
+            <p style={s("font-size:13px;color:#9a7b4f;line-height:1.7;margin:0;")}>你已把蔡家古厝的生活智慧都收進口袋，<br/>是真正的茶山知己。</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 }

@@ -7,13 +7,13 @@
 //   2. 把  USE_PLACEHOLDER  改成 false
 // ============================================================
 
-export const USE_PLACEHOLDER = true
+export const USE_PLACEHOLDER = false
 
 const REAL = {
-  map: '/assets/map.png',           // 首頁背景手繪地圖
-  caiThumb: '/assets/cai-thumb.png', // 選單：蔡家古厝縮圖
-  linThumb: '/assets/lin-thumb.png', // 選單：林家草厝縮圖
-  caiScene: '/assets/cai-scene.png', // 場景：蔡家古厝插畫（比例 1000:476）
+  map: '/assets/map.webp',           // 首頁背景手繪地圖
+  caiThumb: '/assets/cai-thumb.webp', // 選單：蔡家古厝縮圖
+  linThumb: '/assets/lin-thumb.webp', // 選單：林家草厝縮圖
+  caiScene: '/assets/cai-scene.webp', // 場景：蔡家古厝插畫（比例 1000:476）
 }
 
 const enc = (svg) => 'data:image/svg+xml,' + encodeURIComponent(svg.replace(/\n\s*/g, ''))
@@ -38,7 +38,7 @@ const PH_MAP = enc(`
     <rect x="276" y="222" width="40" height="30" fill="#b8895a"/>
     <path d="M270 222 l26 -22 26 22 z" fill="#9a6b3a"/>
   </g>
-  <text x="195" y="60" font-family="serif" font-size="26" fill="#5b4a30" text-anchor="middle">炮仔崙古道</text>
+  <text x="195" y="60" font-family="serif" font-size="26" fill="#5b4a30" text-anchor="middle">炮子崙古道</text>
   <text x="195" y="824" font-family="sans-serif" font-size="15" fill="#7a6843" text-anchor="middle">手繪地圖（佔位圖）</text>
 </svg>`)
 
