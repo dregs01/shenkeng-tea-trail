@@ -14,6 +14,7 @@ const REAL = {
   caiThumb: '/assets/cai-thumb.webp', // 選單：蔡家古厝縮圖
   linThumb: '/assets/lin-thumb.webp', // 選單：林家草厝縮圖
   caiScene: '/assets/cai-scene.webp', // 場景：蔡家古厝插畫（比例 1000:476）
+  linScene: '/assets/lin-scene.png', // 場景：林家草厝插畫
 }
 
 const enc = (svg) => 'data:image/svg+xml,' + encodeURIComponent(svg.replace(/\n\s*/g, ''))
@@ -77,9 +78,11 @@ const PH = {
   caiScene: PH_SCENE,
   caiThumb: thumb('蔡家古厝', '#8c6b41'),
   linThumb: thumb('林家草厝', '#a89060'),
+  linScene: PH_SCENE, // 暫時沿用同一張佔位圖，之後可以做專屬的
 }
 
 export const MAP_IMG = USE_PLACEHOLDER ? PH.map : REAL.map
 export const CAI_THUMB = USE_PLACEHOLDER ? PH.caiThumb : REAL.caiThumb
 export const LIN_THUMB = USE_PLACEHOLDER ? PH.linThumb : REAL.linThumb
 export const CAI_SCENE = USE_PLACEHOLDER ? PH.caiScene : REAL.caiScene
+export const LIN_SCENE = USE_PLACEHOLDER ? PH.linScene : REAL.linScene

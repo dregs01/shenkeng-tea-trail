@@ -1,6 +1,6 @@
 import React from 'react'
-import { HOTSPOTS, ACTIVITIES } from './data.js'
-import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE } from './assets.js'
+import { HOTSPOTS, LIN_HOTSPOTS, ACTIVITIES } from './data.js'
+import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE, LIN_SCENE } from './assets.js'
 
 // 把 CSS 字串（"a:b;c:d"）轉成 React style 物件，方便逐字沿用原本的 inline 樣式
 function s(str) {
@@ -29,6 +29,8 @@ export default class App extends React.Component {
     matchChecked: false,
     dragging: null,
     solved: [false, false, false, false],
+    activeLocation: 'cai',
+    linSolved: [false, false, false, false, false],
     doneSeen: false,
     showActivities: false,
     joined: {},
@@ -38,7 +40,8 @@ export default class App extends React.Component {
 
   slotRefs = {}
 
-  hotspots() { return HOTSPOTS }
+  hotspots() { return this.state.activeLocation === 'lin' ? LIN_HOTSPOTS : HOTSPOTS }
+
 
   componentDidMount() {
     this._move = (e) => { if (this.state.dragging) this.setState({ dragging: { ...this.state.dragging, x: e.clientX, y: e.clientY } }) }
@@ -82,7 +85,12 @@ export default class App extends React.Component {
   confirmMatch() { this.setState({ matchChecked: true }) }
   retryMatch() { this.setState({ matchAssign: { a: null, b: null, c: null }, matchChecked: false }) }
 
-  finishQuiz() { const arr = [...this.state.solved]; arr[this.state.quizId] = true; this.setState({ solved: arr, quizId: null, dragging: null }) }
+  finishQuiz() {
+    const key = this.state.activeLocation === 'lin' ? 'linSolved' : 'solved'
+    const arr = [...this.state[key]]
+    arr[this.state.quizId] = true
+    this.setState({ [key]: arr, quizId: null, dragging: null })
+  }
   setSlot(id) { return (el) => { this.slotRefs[id] = el } }
 
   openActivities() { this.setState({ showActivities: true }) }
@@ -97,7 +105,7 @@ export default class App extends React.Component {
     const showHalo = this.props.pinHalo ?? true
     const ink = '#3b342a', inkSoft = '#6f6450'
     const st = this.state
-    const solved = st.solved
+    const solved = st.activeLocation === 'lin' ? st.linSolved : st.solved
     const solvedCount = solved.filter(Boolean).length
 
     const sealBase = { width: '38px', height: '38px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '21px', lineHeight: 1, boxShadow: '0 3px 8px rgba(59,52,42,.28)' }
@@ -146,7 +154,7 @@ export default class App extends React.Component {
               <p style={s("font-size:13.5px;color:#6f6450;margin:2px 4px 18px;line-height:1.6;")}>沿著古道有兩座百年家屋，點選地點，邊走邊解謎。</p>
 
               {/* Cai card */}
-              <button onClick={() => this.setState({ screen: 'scene' })} style={s("display:block;width:100%;text-align:left;padding:0;border:1px solid rgba(59,52,42,.16);border-radius:18px;overflow:hidden;background:#fbf6ea;cursor:pointer;margin-bottom:18px;box-shadow:0 4px 14px rgba(59,52,42,.1);")}>
+              <button onClick={() => this.setState({ screen: 'scene', activeLocation: 'cai' })} style={s("display:block;width:100%;text-align:left;padding:0;border:1px solid rgba(59,52,42,.16);border-radius:18px;overflow:hidden;background:#fbf6ea;cursor:pointer;margin-bottom:18px;box-shadow:0 4px 14px rgba(59,52,42,.1);")}>
                 <div style={s("position:relative;height:150px;background:#efe6d3;")}>
                   <img src={CAI_THUMB} alt="蔡家古厝" style={s("width:100%;height:100%;object-fit:cover;")} />
                   <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(177,90,60,.92);color:#f7f1e3;font-size:12px;font-weight:600;white-space:nowrap;")}>4 個謎題</div>
@@ -165,7 +173,19 @@ export default class App extends React.Component {
                 <div style={s("position:relative;height:130px;background:#e7dcc6;")}>
                   <img src={LIN_THUMB} alt="林家草厝" style={s("width:100%;height:100%;object-fit:cover;filter:grayscale(.4);")} />
                   <div style={s("position:absolute;inset:0;background:rgba(239,230,211,.35);")}></div>
-                  <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(59,52,42,.55);color:#f7f1e3;font-size:12px;font-weight:600;")}>即將推出</div>
+                  <button onClick={() => this.setState({ screen: 'scene', activeLocation: 'lin' })} style={s("display:block;width:100%;text-align:left;padding:0;border:1px solid rgba(59,52,42,.16);border-radius:18px;overflow:hidden;background:#fbf6ea;cursor:pointer;box-shadow:0 4px 14px rgba(59,52,42,.1);")}>
+                    <div style={s("position:relative;height:130px;background:#efe6d3;")}>
+                      <img src={LIN_THUMB} alt="林家草厝" style={s("width:100%;height:100%;object-fit:cover;")} />
+                      <div style={s("position:absolute;top:10px;left:10px;padding:4px 11px;border-radius:14px;background:rgba(177,90,60,.92);color:#f7f1e3;font-size:12px;font-weight:600;white-space:nowrap;")}>5 個謎題</div>
+                    </div>
+                    <div style={s("padding:14px 16px 16px;")}>
+                      <div style={s("display:flex;align-items:baseline;justify-content:space-between;")}>
+                        <div style={s("font-family:'Ma Shan Zheng',cursive;font-size:26px;color:#3b342a;line-height:1;")}>林家草厝</div>
+                        <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {st.linSolved.filter(Boolean).length}/5</div>
+                      </div>
+                      <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>百年杜英迎賓樹、原始白茅草屋、僅存的崁厝工法。</p>
+                    </div>
+                  </button>                
                 </div>
                 <div style={s("padding:14px 16px 16px;")}>
                   <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#6f6450;line-height:1;")}>林家草厝</div>
