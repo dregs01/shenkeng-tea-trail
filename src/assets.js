@@ -14,7 +14,7 @@ const REAL = {
   caiThumb: '/assets/cai-thumb.webp', // 選單：蔡家古厝縮圖
   linThumb: '/assets/lin-thumb.webp', // 選單：林家草厝縮圖
   caiScene: '/assets/cai-scene.webp', // 場景：蔡家古厝插畫（比例 1000:476）
-  linScene: '/assets/lin-scene.png', // 場景：林家草厝插畫
+  linScene: '/assets/lin-scene.webp', // 場景：林家草厝插畫
 }
 
 const enc = (svg) => 'data:image/svg+xml,' + encodeURIComponent(svg.replace(/\n\s*/g, ''))
