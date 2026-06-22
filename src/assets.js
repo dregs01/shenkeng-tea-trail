@@ -100,3 +100,5 @@ function itemPlaceholder(label) {
 export function itemImage(filename, label) {
   return USE_PLACEHOLDER ? itemPlaceholder(label) : `/assets/items/${filename}`
 }
+
+export const TEA_RECEIVE_IMG = USE_PLACEHOLDER ? null : '/assets/items/teacup.webp'

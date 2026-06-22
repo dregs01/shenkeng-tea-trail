@@ -1,6 +1,6 @@
 import React from 'react'
 import { HOTSPOTS, LIN_HOTSPOTS, ACTIVITIES } from './data.js'
-import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE, LIN_SCENE, itemImage } from './assets.js'
+import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE, LIN_SCENE, itemImage, TEA_RECEIVE_IMG } from './assets.js'
 
 // 把 CSS 字串（"a:b;c:d"）轉成 React style 物件，方便逐字沿用原本的 inline 樣式
 function s(str) {
@@ -468,7 +468,9 @@ export default class App extends React.Component {
       <div style={s("position:relative;width:100%;background:#f4ecd9;border-radius:26px 26px 0 0;padding:0 0 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
         <button onClick={() => this.closeTea()} style={s("position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;z-index:2;")}>✕</button>
 
-        {/* 輪播圖片 */}
+      {/* 圖片區：step 0 輪播 / step 1 接茶動圖 */}
+      {st.tea.step === 0 ? (
+        /* 輪播 */
         <div style={{ position: 'relative', height: '200px', borderRadius: '26px 26px 0 0', overflow: 'hidden' }}
           onTouchStart={(e) => { this._teaSwipeX = e.touches[0].clientX }}
           onTouchEnd={(e) => {
@@ -496,6 +498,31 @@ export default class App extends React.Component {
             </div>
           )}
         </div>
+      ) : (
+        /* 接茶動圖 */
+        <div style={{ height: '200px', borderRadius: '26px 26px 0 0', overflow: 'hidden', background: '#f0e6cc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {TEA_RECEIVE_IMG ? (
+            /* 有真實 GIF 時 */
+            <img src={TEA_RECEIVE_IMG} alt="接茶" style={s("width:100%;height:200px;object-fit:cover;")} />
+          ) : (
+            /* 佔位：CSS 動畫茶杯 */
+            <div style={{ position: 'relative', width: '140px', height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* 蒸氣 */}
+              <span style={s("position:absolute;left:46px;top:2px;width:5px;height:34px;border-radius:3px;background:linear-gradient(180deg,rgba(150,120,80,0),rgba(150,120,80,.45));animation:steam 2.6s ease-in-out infinite;")}></span>
+              <span style={s("position:absolute;left:66px;top:-2px;width:5px;height:38px;border-radius:3px;background:linear-gradient(180deg,rgba(150,120,80,0),rgba(150,120,80,.4));animation:steam 2.6s ease-in-out .9s infinite;")}></span>
+              {/* 茶杯 */}
+              <div style={s("position:absolute;left:24px;top:42px;width:74px;height:50px;background:#bd8c4b;border-radius:8px 8px 28px 28px;box-shadow:inset 0 7px 0 rgba(0,0,0,.12);")}></div>
+              <div style={s("position:absolute;left:30px;top:46px;width:62px;height:13px;background:#7a4a22;border-radius:50%;")}></div>
+              <div style={s("position:absolute;left:92px;top:50px;width:24px;height:30px;border:6px solid #bd8c4b;border-left:none;border-radius:0 16px 16px 0;")}></div>
+              <div style={s("position:absolute;left:12px;top:94px;width:98px;height:15px;background:#cda461;border-radius:50%;")}></div>
+              {/* 雙手 */}
+              <div style={s("position:absolute;top:96px;left:0;right:0;display:flex;justify-content:center;gap:6px;")}>
+                <span style={{ fontSize: '28px', animation: 'fadeIn .5s ease' }}>🤲</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
         {/* 文字與按鈕 */}
         <div style={s("padding:20px 24px 0;")}>
