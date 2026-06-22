@@ -2,6 +2,7 @@
 export const HOTSPOTS = [
   {
   char: '翻', name: '揉茶翻動', tag: '製茶的靈魂', type: 'choice',
+  img: 'cai-tea.webp',
   q: '製茶過程中，為什麼茶葉要不斷地翻動攪動？',
   options: ['散熱防止茶葉燙傷', '讓茶葉更活化，香氣才能更香', '測試茶葉的品質', '幫助茶葉快速乾燥'],
   answer: 1,
@@ -9,6 +10,7 @@ export const HOTSPOTS = [
   },
   {
     char: '土', name: '土角', tag: '就地取材', type: 'choice',
+    img: 'cai-brick.webp',
     q: '石頭厝下半部砌石、上半部疊土角，石牆的高度其實代表什麼？',
     options: ['防水線，擋住地面濺起的水', '主人的身高', '風水規定的尺寸', '蓋房剩下的石頭隨意堆'],
     answer: 0,
@@ -32,6 +34,7 @@ export const HOTSPOTS = [
   },
   {
     char: '牛', name: '地牛（地錨）', tag: '屋頂的祕密', type: 'choice',
+    img: 'cai-anchor.webp',
     q: '茅草屋旁綁著一個叫「地牛」的東西，它的功用是？',
     options: ['拴牛用的柱子','用繩子繞過屋頂，把屋頂拉住固定', '祭拜土地公的神位', '測量雨量的工具'],
     answer: 1,
@@ -43,6 +46,7 @@ export const HOTSPOTS = [
 export const LIN_HOTSPOTS = [
   {
     char: '工', name: '共工修繕', tag: '鄰里互助', type: 'choice',
+    img: 'lin-grass.webp',
     q: '林家草厝要「崁厝」（換屋頂）時，白茅草的來源是什麼？',
     options: ['全部自己種植，自給自足', '從山區鄰居那邊調用，搭配志工隊扛上山', '向政府機構申請免費供應', '向觀光客募捐收集'],
     answer: 1,
@@ -50,6 +54,7 @@ export const LIN_HOTSPOTS = [
   },
   {
     char: '牛', name: '地牛', tag: '不同的做法', type: 'choice',
+    img: 'lin-anchor.webp',
     q: '林家草厝的茅草屋頂用什麼方式固定，跟山下蔡班長家不一樣？',
     options: ['用石頭壓著茅草', '用鋼筋固定地牛', '用水泥灌漿封死', '完全不需要固定'],
     answer: 0,

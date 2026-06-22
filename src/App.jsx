@@ -1,6 +1,6 @@
 import React from 'react'
 import { HOTSPOTS, LIN_HOTSPOTS, ACTIVITIES } from './data.js'
-import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE, LIN_SCENE } from './assets.js'
+import { MAP_IMG, CAI_THUMB, LIN_THUMB, CAI_SCENE, LIN_SCENE, itemImage } from './assets.js'
 
 // 把 CSS 字串（"a:b;c:d"）轉成 React style 物件，方便逐字沿用原本的 inline 樣式
 function s(str) {
@@ -326,6 +326,9 @@ export default class App extends React.Component {
             </div>
             <button onClick={() => this.closeQuiz()} style={s("width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;line-height:1;")}>✕</button>
           </div>
+          {h.img && (
+          <img src={itemImage(h.img, h.name)} alt={h.name} style={s("width:100%;height:170px;object-fit:cover;border-radius:14px;margin:14px 0 4px;")} />
+        )}
           <p style={s("font-size:16.5px;line-height:1.55;color:#3b342a;font-weight:600;margin:16px 0 18px;")}>{h.q}</p>
 
           {h.type === 'choice' && this.renderChoice(h, A, ink, primaryBtnStyle)}
@@ -501,6 +504,9 @@ export default class App extends React.Component {
     isSolved ? (
       /* 已解開：完整卡片 */
       <div style={s("background:#fbf6ea;border:1px solid rgba(154,123,79,.25);border-radius:16px;padding:16px;")}>
+        {h.img && (
+          <img src={itemImage(h.img, h.name)} alt={h.name} style={s("width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:12px;")} />
+        )}
         <div style={s("display:flex;align-items:center;gap:12px;margin-bottom:10px;")}>
           <span style={{ width: '46px', height: '46px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'LXGW WenKai TC',cursive", fontSize: '25px', background: A, color: '#f7f1e3', border: '2px solid rgba(0,0,0,.22)', boxShadow: '0 3px 8px rgba(59,52,42,.28)', flexShrink: 0 }}>{h.char}</span>
           <div>

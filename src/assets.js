@@ -86,3 +86,17 @@ export const CAI_THUMB = USE_PLACEHOLDER ? PH.caiThumb : REAL.caiThumb
 export const LIN_THUMB = USE_PLACEHOLDER ? PH.linThumb : REAL.linThumb
 export const CAI_SCENE = USE_PLACEHOLDER ? PH.caiScene : REAL.caiScene
 export const LIN_SCENE = USE_PLACEHOLDER ? PH.linScene : REAL.linScene
+// 單一物件的佔位圖（用在題目和卡冊）
+function itemPlaceholder(label) {
+  return enc(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <rect width="400" height="280" fill="#e6d8bc"/>
+  <circle cx="200" cy="110" r="55" fill="#c9b48a"/>
+  <text x="200" y="230" font-family="sans-serif" font-size="19" fill="#6f5c3a" text-anchor="middle">${label}（佔位圖）</text>
+</svg>`)
+}
+
+// 取得單一物件的圖片：佔位圖 or 真實檔案
+export function itemImage(filename, label) {
+  return USE_PLACEHOLDER ? itemPlaceholder(label) : `/assets/items/${filename}`
+}
