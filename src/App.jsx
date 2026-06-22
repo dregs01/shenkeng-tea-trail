@@ -165,7 +165,7 @@ export default class App extends React.Component {
                     <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#3b342a;line-height:1;")}>蔡家古厝</div>
                     <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {solvedCount}/4</div>
                   </div>
-                  <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>140 年石頭厝、良心市集、崁厝工法與地牛的祕密。</p>
+                  <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>140年古厝、崁厝工法與地牛的祕密。</p>
                 </div>
               </button>
 
@@ -180,7 +180,7 @@ export default class App extends React.Component {
                     <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:26px;color:#3b342a;line-height:1;")}>林家草厝</div>
                     <div style={s("font-size:12px;color:#9a7b4f;")}>解謎 {st.linSolved.filter(Boolean).length}/5</div>
                   </div>
-                  <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>百年杜英迎賓樹、原始白茅草屋、僅存的崁厝工法。</p>
+                  <p style={s("font-size:13px;color:#6f6450;margin:8px 0 0;line-height:1.55;")}>白茅草屋、僅存的崁厝工法。</p>
                 </div>
               </button>
             </div>
@@ -191,13 +191,13 @@ export default class App extends React.Component {
         {st.screen === 'scene' && (() => {
           const isLin = st.activeLocation === 'lin'
           const sceneTitle = isLin ? '林家草厝' : '蔡家古厝'
-          const sceneSubtitle = isLin ? '百年原始茅草屋・炮子崙茶山' : '140 年石頭厝・炮子崙茶山'
+          const sceneSubtitle = isLin ? '百年茅草屋・炮子崙茶山' : '140 年古厝・炮子崙茶山'
           const sceneImg = isLin ? LIN_SCENE : CAI_SCENE
           const positions = isLin
             ? [
-                { left: '16%', top: '70%' },
-                { left: '32%', top: '46%' },
-                { left: '50%', top: '20%' },
+                { left: '16%', top: '30%' },//工
+                { left: '10%', top: '80%' },//牛
+                { left: '50%', top: '20%' },//修
                 { left: '70%', top: '48%' },
                 { left: '85%', top: '72%' },
               ]
