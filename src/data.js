@@ -18,6 +18,7 @@ export const HOTSPOTS = [
   },
   {
     char: '砌', name: '砌牆工法', tag: '三種工法不同意義', type: 'match',
+    img: 'cai-brick-block.webp',
     q: '把三種砌牆工法，拖到正確的描述上。',
     slots: [
       { id: 'a', desc: '工整專業、最常見的好工法' },
@@ -62,6 +63,7 @@ export const LIN_HOTSPOTS = [
   },
   {
     char: '修', name: '崁厝的頻率', tag: '維護與修繕', type: 'choice',
+     img: 'lin-roof.webp',
     q: '林家草厝的茅草屋頂大概多久整修一次？',
     options: ['每年都全部換新', '十年才換一次','不一定，平常約三、四年小部分修繕，風災年可能連兩年都換', '茅草不需要維護'],
     answer: 2,
@@ -85,7 +87,7 @@ export const LIN_HOTSPOTS = [
 
 // 報名活動（與原 DC 檔逐字一致）
 export const ACTIVITIES = [
-  { id: 'kam', name: '崁厝・換茅草共工', when: '秋季農閒', desc: '跟著志工隊把白茅草扛上山，學鋪草、壓草、收邊六大步驟，親手替百年茅草屋換上新草——從換工到共工的茶山人情。' },
-  { id: 'sweet', name: '地瓜送愛心', when: '6 月種・10 月採', desc: '六月種地瓜、十月採收，收入全數捐給偏鄉學校。跟著班長下田，把愛心傳到淡蘭古道另一端的國小。' },
-  { id: 'tea', name: '製茶與鼠麴粿體驗', when: '採茶季・節慶', desc: '走進一條龍的製茶流程，從採菁、萎凋到揉捻；或是一起做土角、炊鼠麴粿。' },
+  { id: 'kam', name: '崁厝・換茅草共工', when: '秋季農閒',imgs: ['lin-roof-renew-0.webp', 'lin-roof-renew-1.webp'],desc: '跟著志工隊把白茅草扛上山，學鋪草、壓草、收邊六大步驟，親手替百年茅草屋換上新草——從換工到共工的茶山人情。' },
+  { id: 'sweet', name: '種地瓜送愛心', when: '6 月種・10 月採', imgs: ['lin-sweetpotato-0.webp', 'lin-sweetpotato-1.webp', 'lin-sweetpotato-2.webp'], desc: '六月種地瓜、十月採收，收入全數捐給偏鄉學校。跟著班長下田，把愛心傳到淡蘭古道另一端的國小。' },
+  { id: 'tea', name: '製茶與鼠麴粿體驗', when: '體驗在地農家生活', imgs: ['diy-cake.webp'], desc: '走進傳統的製茶流程，從採菁、萎凋到揉捻；或是一起做土角、炊鼠麴粿。' },
 ]

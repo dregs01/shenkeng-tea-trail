@@ -36,6 +36,7 @@ export default class App extends React.Component {
     joined: {},
     tea: { open: false, step: 0 },
     teaDone: false,
+    carouselIndex: {},
   }
 
   slotRefs = {}
@@ -99,6 +100,18 @@ export default class App extends React.Component {
   openTea() { this.setState({ tea: { open: true, step: 0 } }) }
   teaAdvance() { if (this.state.tea.step === 0) this.setState({ tea: { open: true, step: 1 } }); else this.setState({ tea: { open: false, step: 0 }, teaDone: true }) }
   closeTea() { this.setState({ tea: { open: false, step: 0 } }) }
+  carouselGo(id, dir, max) {
+  const cur = this.state.carouselIndex[id] ?? 0
+  const next = (cur + dir + max) % max
+  this.setState({ carouselIndex: { ...this.state.carouselIndex, [id]: next } })
+  }
+  carouselTouchStart(e) {
+    this._swipeX = e.touches[0].clientX
+  }
+  carouselTouchEnd(id, max, e) {
+    const dx = e.changedTouches[0].clientX - this._swipeX
+    if (Math.abs(dx) > 40) this.carouselGo(id, dx < 0 ? 1 : -1, max)
+  }
 
   render() {
     const A = this.props.accentColor ?? '#b15a3c'
@@ -464,23 +477,59 @@ export default class App extends React.Component {
   }
 
   renderActivities(A) {
-    const st = this.state
-    return (
-      <div style={s("position:absolute;inset:0;z-index:25;display:flex;flex-direction:column;justify-content:flex-end;")}>
-        <div onClick={() => this.closeActivities()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
-        <div style={s("position:relative;background:#f4ecd9;border-radius:26px 26px 0 0;max-height:90%;overflow-y:auto;padding:22px 22px 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
-          <div style={s("display:flex;align-items:center;margin-bottom:6px;")}>
-            <div style={s("flex:1;font-family:'LXGW WenKai TC',cursive;font-size:25px;color:#3b342a;")}>茶山活動報名</div>
-            <button onClick={() => this.closeActivities()} style={s("width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;")}>✕</button>
-          </div>
-          <p style={s("font-size:13px;color:#6f6450;margin:0 0 16px;line-height:1.6;")}>跟著茶山一起共工、做農事，名額有限，先報名先預約。</p>
-          {ACTIVITIES.map((a) => {
-            const joined = !!st.joined[a.id]
-            const btnStyle = joined
-              ? { width: '100%', padding: '12px', borderRadius: '12px', border: '1.5px solid #5f7a44', background: '#e7eed8', color: '#3f5230', fontSize: '15px', fontWeight: 600, cursor: 'pointer' }
-              : { width: '100%', padding: '12px', borderRadius: '12px', border: 'none', background: A, color: '#fbf6ea', fontSize: '15px', fontWeight: 600, cursor: 'pointer' }
-            return (
-              <div key={a.id} style={s("border:1px solid rgba(59,52,42,.14);border-radius:15px;padding:14px 15px;margin-bottom:12px;background:#fbf6ea;")}>
+  const st = this.state
+  return (
+    <div style={s("position:absolute;inset:0;z-index:25;display:flex;flex-direction:column;justify-content:flex-end;")}>
+      <div onClick={() => this.closeActivities()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
+      <div style={s("position:relative;background:#f4ecd9;border-radius:26px 26px 0 0;max-height:90%;overflow-y:auto;padding:22px 22px 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
+        <div style={s("display:flex;align-items:center;margin-bottom:6px;")}>
+          <div style={s("flex:1;font-family:'LXGW WenKai TC',cursive;font-size:25px;color:#3b342a;")}>茶山活動報名</div>
+          <button onClick={() => this.closeActivities()} style={s("width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;")}>✕</button>
+        </div>
+        <p style={s("font-size:13px;color:#6f6450;margin:0 0 16px;line-height:1.6;")}>跟著茶山一起共工、做農事，名額有限，先報名先預約。</p>
+        {ACTIVITIES.map((a) => {
+          const joined = !!st.joined[a.id]
+          const btnStyle = joined
+            ? { width: '100%', padding: '12px', borderRadius: '12px', border: '1.5px solid #5f7a44', background: '#e7eed8', color: '#3f5230', fontSize: '15px', fontWeight: 600, cursor: 'pointer' }
+            : { width: '100%', padding: '12px', borderRadius: '12px', border: 'none', background: A, color: '#fbf6ea', fontSize: '15px', fontWeight: 600, cursor: 'pointer' }
+          const idx = st.carouselIndex[a.id] ?? 0
+          const total = a.imgs ? a.imgs.length : 0
+          return (
+            <div key={a.id} style={s("border:1px solid rgba(59,52,42,.14);border-radius:15px;overflow:hidden;margin-bottom:12px;background:#fbf6ea;")}>
+
+              {/* 輪播圖片區 */}
+              {total > 0 && (
+                <div style={{ position: 'relative', height: '150px', overflow: 'hidden' }}
+                  onTouchStart={(e) => this.carouselTouchStart(e)}
+                  onTouchEnd={(e) => this.carouselTouchEnd(a.id, total, e)}>
+                  <img
+                    src={itemImage(a.imgs[idx], a.name)}
+                    alt={a.name}
+                    style={s("width:100%;height:150px;object-fit:cover;")} />
+                  {total > 1 && (
+                    <>
+                      {idx > 0 && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); this.carouselGo(a.id, -1, total) }}
+                          style={{ position: 'absolute', left: '8px', top: '50%', transform: 'translateY(-50%)', width: '30px', height: '30px', borderRadius: '50%', border: 'none', background: 'rgba(251,246,234,.88)', color: '#3b342a', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,.22)', lineHeight: 1 }}>‹</button>
+                      )}
+                      {idx < total - 1 && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); this.carouselGo(a.id, 1, total) }}
+                          style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', width: '30px', height: '30px', borderRadius: '50%', border: 'none', background: 'rgba(251,246,234,.88)', color: '#3b342a', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,.22)', lineHeight: 1 }}>›</button>
+                      )}
+                      <div style={{ position: 'absolute', bottom: '8px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '5px' }}>
+                        {Array.from({ length: total }).map((_, i) => (
+                          <div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: i === idx ? '#fbf6ea' : 'rgba(251,246,234,.45)', transition: 'background .2s' }} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* 文字與報名按鈕 */}
+              <div style={s("padding:14px 15px;")}>
                 <div style={s("display:flex;align-items:baseline;gap:8px;margin-bottom:6px;")}>
                   <div style={s("flex:1;font-size:16.5px;font-weight:700;color:#3b342a;")}>{a.name}</div>
                   <div style={s("font-size:12px;color:#9a7b4f;white-space:nowrap;flex:0 0 auto;")}>{a.when}</div>
@@ -488,12 +537,14 @@ export default class App extends React.Component {
                 <p style={s("font-size:13.5px;color:#6f6450;line-height:1.6;margin:0 0 12px;")}>{a.desc}</p>
                 <button onClick={() => this.toggleJoin(a.id)} style={btnStyle}>{joined ? '已報名 ✓' : '我有興趣，報名'}</button>
               </div>
-            )
-          })}
-        </div>
+
+            </div>
+          )
+        })}
       </div>
-    )
-  }
+    </div>
+  )
+}
   renderCollection() {
   const { solved, linSolved } = this.state
   const A = this.props.accentColor ?? '#b15a3c'
