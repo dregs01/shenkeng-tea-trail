@@ -36,6 +36,8 @@ export default class App extends React.Component {
     joined: {},
     tea: { open: false, step: 0 },
     teaDone: false,
+    teaAutoShown: false,
+    teaCarouselIndex: 0,
     carouselIndex: {},
   }
 
@@ -54,6 +56,19 @@ export default class App extends React.Component {
     window.removeEventListener('pointermove', this._move)
     window.removeEventListener('pointerup', this._up)
   }
+  componentDidUpdate(prevProps, prevState) {
+  const { screen, activeLocation, teaAutoShown } = this.state
+  const enteredCaiScene =
+    screen === 'scene' &&
+    activeLocation === 'cai' &&
+    !teaAutoShown &&
+    (prevState.screen !== 'scene' || prevState.activeLocation !== 'cai')
+  if (enteredCaiScene) {
+    setTimeout(() => {
+      this.setState({ tea: { open: true, step: 0 }, teaAutoShown: true, teaCarouselIndex: 0 })
+    }, 800)
+  }
+}
 
   openQuiz(i) {
     this.setState({ quizId: i, selected: null, answered: false, wrongPicks: [], matchAssign: { a: null, b: null, c: null }, matchChecked: false, dragging: null })
@@ -97,7 +112,7 @@ export default class App extends React.Component {
   openActivities() { this.setState({ showActivities: true }) }
   closeActivities() { this.setState({ showActivities: false }) }
   toggleJoin(id) { const j = { ...this.state.joined }; j[id] = !j[id]; this.setState({ joined: j }) }
-  openTea() { this.setState({ tea: { open: true, step: 0 } }) }
+  openTea() { this.setState({ tea: { open: true, step: 0 }, teaCarouselIndex: 0 }) }
   teaAdvance() { if (this.state.tea.step === 0) this.setState({ tea: { open: true, step: 1 } }); else this.setState({ tea: { open: false, step: 0 }, teaDone: true }) }
   closeTea() { this.setState({ tea: { open: false, step: 0 } }) }
   carouselGo(id, dir, max) {
@@ -260,15 +275,7 @@ export default class App extends React.Component {
               <p style={s("text-align:center;font-size:13px;color:#6f6450;margin:14px 26px 4px;line-height:1.6;")}>點點看會發光的<span style={s("color:#b15a3c;font-weight:600;")}>印章</span>，或從下面清單開始解謎。</p>
               <div style={s("padding:10px 18px 24px;")}>
                 <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:19px;color:#9a7b4f;margin:4px 2px 10px;")}>古厝裡的祕密</div>
-                {!isLin && (
-                  <button onClick={() => this.openTea()} style={s("display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#f6ecd6;border:1px solid rgba(198,154,69,.45);border-radius:13px;padding:10px 13px;margin-bottom:9px;cursor:pointer;box-shadow:0 1px 0 rgba(59,52,42,.05);")}>
-                    <span style={teaMini}>茶</span>
-                    <span style={s("flex:1;")}><span style={s("display:block;font-size:15.5px;color:#3b342a;font-weight:600;line-height:1.2;")}>奉茶</span><span style={s("display:block;font-size:11.5px;color:#9a7b4f;")}>體驗茶山人情味</span></span>
-                    <span style={s("font-size:12px;color:#b08a3e;font-weight:600;white-space:nowrap;flex:0 0 auto;")}>{st.teaDone ? '已奉茶' : '體驗'}</span>
-                  </button>
-                )}
                 {this.hotspots().map((h, i) => (
-
                   <button key={i} onClick={() => this.openQuiz(i)} style={s("display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fbf6ea;border:1px solid rgba(59,52,42,.14);border-radius:13px;padding:10px 13px;margin-bottom:9px;cursor:pointer;box-shadow:0 1px 0 rgba(59,52,42,.05);")}>
                     <span style={solved[i] ? miniSolved : miniOpen}>{h.char}</span>
                     <span style={s("flex:1;")}><span style={s("display:block;font-size:15.5px;color:#3b342a;font-weight:600;line-height:1.2;")}>{h.name}</span><span style={s("display:block;font-size:11.5px;color:#9a7b4f;")}>{h.tag}</span></span>
@@ -446,35 +453,61 @@ export default class App extends React.Component {
   }
 
   renderTea() {
-    const st = this.state
-    const teaText = st.tea.step === 0
-      ? '「來，山路行甲遮，先坐落歇睏。」蔡班長端出一杯自家種的茶葉，還有一碗豆花招待你。'
-      : '茶湯清香、入喉回甘。班長笑說：吃點甜的、喝口茶，待會走山卡有力。這杯茶是務農之餘的私藏、不外賣——是茶山待客的人情味。'
-    const teaBtn = st.tea.step === 0 ? '雙手接過茶' : '謝謝班長'
+  const st = this.state
+  const teaImgs = ['cai-tea-serving.webp', 'cai-tea-serving-1.webp']  
+  const idx = st.teaCarouselIndex
+  const total = teaImgs.length
+  const teaText = st.tea.step === 0
+    ? '「來，山路行甲遮，先坐落歇睏。」蔡班長端出一杯自家種的茶葉，還有一碗豆花招待你。'
+    : '茶湯清香、入喉回甘。班長笑說：吃點甜的、喝口茶，待會走山卡有力。這杯茶是務農之餘的私藏、不外賣——是茶山待客的人情味。'
+  const teaBtn = st.tea.step === 0 ? '雙手接過茶' : '謝謝班長'
 
-    return (
-      <div style={s("position:absolute;inset:0;z-index:25;display:flex;align-items:flex-end;")}>
-        <div onClick={() => this.closeTea()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
-        <div style={s("position:relative;width:100%;background:#f4ecd9;border-radius:26px 26px 0 0;padding:26px 24px 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
-          <button onClick={() => this.closeTea()} style={s("position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;")}>✕</button>
+  return (
+    <div style={s("position:absolute;inset:0;z-index:25;display:flex;align-items:flex-end;")}>
+      <div onClick={() => this.closeTea()} style={s("position:absolute;inset:0;background:rgba(34,30,24,.6);")}></div>
+      <div style={s("position:relative;width:100%;background:#f4ecd9;border-radius:26px 26px 0 0;padding:0 0 30px;box-shadow:0 -10px 30px rgba(0,0,0,.3);animation:sheetUp .35s ease;")}>
+        <button onClick={() => this.closeTea()} style={s("position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(59,52,42,.08);color:#6f6450;font-size:17px;cursor:pointer;z-index:2;")}>✕</button>
+
+        {/* 輪播圖片 */}
+        <div style={{ position: 'relative', height: '200px', borderRadius: '26px 26px 0 0', overflow: 'hidden' }}
+          onTouchStart={(e) => { this._teaSwipeX = e.touches[0].clientX }}
+          onTouchEnd={(e) => {
+            const dx = e.changedTouches[0].clientX - this._teaSwipeX
+            if (Math.abs(dx) > 40) {
+              const next = (idx + (dx < 0 ? 1 : -1) + total) % total
+              this.setState({ teaCarouselIndex: next })
+            }
+          }}>
+          <img src={itemImage(teaImgs[idx], '奉茶')} alt="奉茶" style={s("width:100%;height:200px;object-fit:cover;")} />
+          <div style={s("position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(0deg,rgba(239,230,211,.7),transparent);")}></div>
+          {idx > 0 && (
+            <button onClick={() => this.setState({ teaCarouselIndex: idx - 1 })}
+              style={{ position: 'absolute', left: '8px', top: '50%', transform: 'translateY(-50%)', width: '30px', height: '30px', borderRadius: '50%', border: 'none', background: 'rgba(251,246,234,.88)', color: '#3b342a', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,.22)', lineHeight: 1 }}>‹</button>
+          )}
+          {idx < total - 1 && (
+            <button onClick={() => this.setState({ teaCarouselIndex: idx + 1 })}
+              style={{ position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)', width: '30px', height: '30px', borderRadius: '50%', border: 'none', background: 'rgba(251,246,234,.88)', color: '#3b342a', fontSize: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,.22)', lineHeight: 1 }}>›</button>
+          )}
+          {total > 1 && (
+            <div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '5px' }}>
+              {Array.from({ length: total }).map((_, i) => (
+                <div key={i} style={{ width: '6px', height: '6px', borderRadius: '50%', background: i === idx ? '#fbf6ea' : 'rgba(251,246,234,.45)', transition: 'background .2s' }} />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 文字與按鈕 */}
+        <div style={s("padding:20px 24px 0;")}>
           <div style={s("font-family:'LXGW WenKai TC',cursive;font-size:27px;color:#7a5a2f;text-align:center;margin-bottom:2px;")}>奉茶</div>
           <div style={s("font-size:12px;color:#9a7b4f;text-align:center;letter-spacing:2px;margin-bottom:14px;")}>受蔡班長招待</div>
-          <div style={s("display:flex;justify-content:center;margin:4px 0 18px;")}>
-            <div style={s("position:relative;width:122px;height:112px;")}>
-              <span style={s("position:absolute;left:46px;top:2px;width:5px;height:34px;border-radius:3px;background:linear-gradient(180deg,rgba(150,120,80,0),rgba(150,120,80,.45));animation:steam 2.6s ease-in-out infinite;")}></span>
-              <span style={s("position:absolute;left:66px;top:-2px;width:5px;height:38px;border-radius:3px;background:linear-gradient(180deg,rgba(150,120,80,0),rgba(150,120,80,.4));animation:steam 2.6s ease-in-out .9s infinite;")}></span>
-              <div style={s("position:absolute;left:24px;top:42px;width:74px;height:50px;background:#bd8c4b;border-radius:8px 8px 28px 28px;box-shadow:inset 0 7px 0 rgba(0,0,0,.12);")}></div>
-              <div style={s("position:absolute;left:30px;top:46px;width:62px;height:13px;background:#7a4a22;border-radius:50%;")}></div>
-              <div style={s("position:absolute;left:92px;top:50px;width:24px;height:30px;border:6px solid #bd8c4b;border-left:none;border-radius:0 16px 16px 0;")}></div>
-              <div style={s("position:absolute;left:12px;top:94px;width:98px;height:15px;background:#cda461;border-radius:50%;")}></div>
-            </div>
-          </div>
           <p style={s("font-size:15.5px;line-height:1.75;color:#3b342a;text-align:center;margin:0 0 20px;")}>{teaText}</p>
           <button onClick={() => this.teaAdvance()} style={s("width:100%;padding:15px;border-radius:14px;border:none;background:#b15a3c;color:#fbf6ea;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(59,52,42,.22);")}>{teaBtn}</button>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
 
   renderActivities(A) {
   const st = this.state
